@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenova AI - Thought-Powered Coding Assistant</title>
+    
+    <!-- Apple-style system font stack -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: #f5f5f7;
+            line-height: 1.15;
+            background-color: #000;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .spline-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.9;
+        }
+
+        /* Apple-style Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 2rem;
+            line-height: 1.05;
+            padding: 0 5%;
+        }
+
+        .hero h1 span {
+            color: #2997ff;
+            display: inline-block;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.75rem;
+            font-weight: 300;
+            max-width: 760px;
+            margin: 0 auto 3rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.4;
+        }
+
+        /* Minimal CTA Button */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            color: #2997ff;
+            font-size: 1.25rem;
+            font-weight: 500;
+            padding: 1rem 2.5rem;
+            border: 2px solid rgba(41, 151, 255, 0.4);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-decoration: none;
+            backdrop-filter: blur(8px);
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            border-color: #2997ff;
+            background-color: rgba(41, 151, 255, 0.1);
+            transform: scale(1.03);
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-box {
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .feature-box h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .feature-box p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .footer p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0.5rem 0;
+        }
+
+        .footer a {
+            color: #2997ff;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer a:hover {
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.25rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                padding: 2rem 1rem;
+            }
+
+            .feature-box {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="spline-background">
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.72/build/spline-viewer.js"></script>
+        <spline-viewer url="https://prod.spline.design/F6AYpmRz8BcjiRq6/scene.splinecode"></spline-viewer>
+    </div>
+
+    <main>
+        <section class="hero">
+            <h1>Welcome to <span>Zenova AI</span></h1>
+            <p>Zenova AI uses neural signals to code, debug, and collaborate. Experience the future of intelligent software development.</p>
+            <a href="https://huggingface.co/spaces/AInerd44/Zenova_AI_Public" target="_blank">
+                <button class="cta-button">Try Zenova AI</button>
+            </a>
+        </section>
+
+        <section class="features">
+            <div class="feature-box">
+                <h3>Neural Signal Translation</h3>
+                <p>Instant code generation through neural interface technology.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Real-Time Debugging</h3>
+                <p>Immediate feedback and error detection as you work.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Mind Collaboration</h3>
+                <p>Seamless team integration through neural networks.</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2025 Zenova AI. All rights reserved.</p>
+            <p>Explore on <a href="https://huggingface.co/spaces/AInerd44/Zenova_AI_Public" target="_blank">Hugging Face</a></p>
+        </footer>
+    </main>
+
+</body>
+</html>
