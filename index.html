@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zenova AI — Agentic Assistant for IT, Networking & Code</title>
+    <title>Zenova AI: Agentic Assistant for IT, Networking & Code</title>
     <meta name="description" content="An agentic AI assistant for IT professionals, network engineers, and CS students. Built on open-source LLMs with real tool-use: web search, code analysis, and RFC lookup.">
 
     <!-- Preconnect to font CDN for speed -->
@@ -455,8 +455,8 @@
             <h1>An AI agent built for<br><span class="accent">engineers, not chat.</span></h1>
             <p class="lead">
                 Zenova is an agentic assistant for IT professionals, network engineers,
-                and CS students. It uses real tools — web search, code analysis,
-                and RFC lookup — to ground every answer in evidence, not guesses.
+                and CS students. It uses real tools (web search, code analysis,
+                and RFC lookup) to ground every answer in evidence, not guesses.
             </p>
             <div class="hero-cta-group">
                 <a href="https://huggingface.co/spaces/AInerd44/Zenova_AI_Public"
@@ -489,12 +489,12 @@
                 <div class="feature-card">
                     <div class="feature-icon">🔍</div>
                     <h3>Static Code Analysis</h3>
-                    <p>Parses Python with AST and flags common issues — mutable defaults, bare excepts, eval, shell injection risks. No code execution, fully safe.</p>
+                    <p>Parses Python with AST and flags common issues: mutable defaults, bare excepts, eval, shell injection risks. No code execution, fully safe.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">📘</div>
                     <h3>RFC Lookup</h3>
-                    <p>Built-in knowledge of foundational networking RFCs — TCP, BGP, OSPF, HTTP, IPv4/IPv6, DHCP, ARP — with direct links to the source documents.</p>
+                    <p>Built-in knowledge of foundational networking RFCs (TCP, BGP, OSPF, HTTP, IPv4/IPv6, DHCP, ARP) with direct links to the source documents.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">📎</div>
@@ -517,18 +517,18 @@
         <!-- === HOW IT WORKS === -->
         <section class="section" id="how-it-works">
             <span class="section-eyebrow">Under the hood</span>
-            <h2 class="section-title">A ReAct agent on open-source LLMs.</h2>
+            <h2 class="section-title">A tool-calling agent on open-source LLMs.</h2>
             <p class="section-lead">
-                Zenova uses a tool-calling agent loop: the model decides when to
+                Zenova uses a tool-calling agent loop. The model decides when to
                 invoke a tool, the host executes it, and the result feeds back into
-                the next step — up to four rounds per question. Built without a single
+                the next step, up to four rounds per question. Built without a single
                 proprietary API.
             </p>
 
             <div class="stack">
                 <div class="stack-item">
                     <h4>Backbone Model</h4>
-                    <p><code>Qwen2.5-Coder-32B-Instruct</code> via Hugging Face Inference Providers — strong on code, networking, and reasoning.</p>
+                    <p><code>Qwen2.5-Coder-32B-Instruct</code> via Hugging Face Inference Providers. Strong on code, networking, and reasoning.</p>
                 </div>
                 <div class="stack-item">
                     <h4>Interface</h4>
@@ -536,7 +536,7 @@
                 </div>
                 <div class="stack-item">
                     <h4>Search</h4>
-                    <p>DuckDuckGo via <code>duckduckgo-search</code> — no API key, no tracking.</p>
+                    <p>DuckDuckGo via <code>duckduckgo-search</code>. No API key, no tracking.</p>
                 </div>
                 <div class="stack-item">
                     <h4>Agent Loop</h4>
