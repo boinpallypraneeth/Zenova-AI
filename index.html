@@ -3,24 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zenova AI - Thought-Powered Coding Assistant</title>
-    
-    <!-- Apple-style system font stack -->
+    <title>Zenova AI — Agentic Assistant for IT, Networking & Code</title>
+    <meta name="description" content="An agentic AI assistant for IT professionals, network engineers, and CS students. Built on open-source LLMs with real tool-use: web search, code analysis, and RFC lookup.">
+
+    <!-- Preconnect to font CDN for speed -->
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+
     <style>
+        :root {
+            --zen-bg: #000;
+            --zen-text: #f5f5f7;
+            --zen-text-muted: rgba(255, 255, 255, 0.72);
+            --zen-text-faint: rgba(255, 255, 255, 0.5);
+            --zen-accent: #2997ff;
+            --zen-accent-soft: rgba(41, 151, 255, 0.12);
+            --zen-border: rgba(255, 255, 255, 0.08);
+            --zen-card: rgba(255, 255, 255, 0.03);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            color: #f5f5f7;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+            font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'ss01';
+            color: var(--zen-text);
             line-height: 1.15;
-            background-color: #000;
+            background-color: var(--zen-bg);
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
         }
 
+        /* === Spline background === */
         .spline-background {
             position: fixed;
             top: 0;
@@ -31,139 +52,383 @@
             opacity: 0.9;
         }
 
-        /* Apple-style Hero Section */
+        /* Subtle gradient overlay to keep text legible against the Spline orb */
+        .spline-background::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                ellipse at center,
+                transparent 0%,
+                rgba(0, 0, 0, 0.3) 70%,
+                rgba(0, 0, 0, 0.6) 100%
+            );
+            pointer-events: none;
+        }
+
+        /* === Top nav === */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 18px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid var(--zen-border);
+        }
+
+        .nav-brand {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--zen-text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-brand::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--zen-accent);
+            box-shadow: 0 0 10px rgba(41, 151, 255, 0.7);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: var(--zen-text-muted);
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 500;
+            transition: color 150ms ease;
+        }
+
+        .nav-links a:hover { color: var(--zen-text); }
+
+        /* === Hero === */
         .hero {
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem 4rem;
             text-align: center;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 4.5rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            margin-bottom: 2rem;
-            line-height: 1.05;
-            padding: 0 5%;
-        }
-
-        .hero h1 span {
-            color: #2997ff;
-            display: inline-block;
             position: relative;
         }
 
-        .hero p {
-            font-size: 1.75rem;
-            font-weight: 300;
-            max-width: 760px;
-            margin: 0 auto 3rem;
-            color: rgba(255, 255, 255, 0.85);
-            line-height: 1.4;
+        .hero-eyebrow {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--zen-accent-soft);
+            color: var(--zen-accent);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-radius: 999px;
+            margin-bottom: 32px;
+            animation: zen-fade-in 800ms ease-out 100ms both;
         }
 
-        /* Minimal CTA Button */
+        .hero h1 {
+            font-size: clamp(2.75rem, 6vw, 4.75rem);
+            font-weight: 700;
+            letter-spacing: -0.035em;
+            margin-bottom: 1.5rem;
+            line-height: 1.02;
+            animation: zen-fade-in 900ms ease-out 250ms both;
+        }
+
+        .hero h1 .accent {
+            background: linear-gradient(120deg, #2997ff 0%, #6ab8ff 50%, #2997ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero p.lead {
+            font-size: clamp(1.125rem, 2vw, 1.5rem);
+            font-weight: 300;
+            max-width: 680px;
+            margin: 0 auto 2.5rem;
+            color: var(--zen-text-muted);
+            line-height: 1.45;
+            letter-spacing: -0.005em;
+            animation: zen-fade-in 900ms ease-out 400ms both;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: zen-fade-in 900ms ease-out 550ms both;
+        }
+
         .cta-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: transparent;
-            color: #2997ff;
-            font-size: 1.25rem;
+            gap: 6px;
+            font-size: 1rem;
             font-weight: 500;
-            padding: 1rem 2.5rem;
-            border: 2px solid rgba(41, 151, 255, 0.4);
-            border-radius: 30px;
+            padding: 0.9rem 1.75rem;
+            border-radius: 999px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
             text-decoration: none;
-            backdrop-filter: blur(8px);
-            background-color: rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
         }
 
-        .cta-button:hover {
-            border-color: #2997ff;
-            background-color: rgba(41, 151, 255, 0.1);
-            transform: scale(1.03);
+        .cta-primary {
+            background: var(--zen-accent);
+            color: #fff;
+            border: 1px solid var(--zen-accent);
         }
 
-        /* Features Grid */
+        .cta-primary:hover {
+            background: #5cb0ff;
+            border-color: #5cb0ff;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(41, 151, 255, 0.3);
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--zen-text);
+            border: 1px solid var(--zen-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-button .arrow {
+            transition: transform 200ms ease;
+        }
+
+        .cta-button:hover .arrow {
+            transform: translateX(3px);
+        }
+
+        /* === Section utility === */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-eyebrow {
+            display: block;
+            color: var(--zen-accent);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+            max-width: 680px;
+        }
+
+        .section-lead {
+            font-size: 1.125rem;
+            color: var(--zen-text-muted);
+            line-height: 1.55;
+            max-width: 620px;
+            font-weight: 300;
+            margin-bottom: 3rem;
+        }
+
+        /* === Features Grid === */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
         }
 
-        .feature-box {
-            padding: 2.5rem;
-            background: rgba(255, 255, 255, 0.03);
+        .feature-card {
+            padding: 2rem;
+            background: var(--zen-card);
             border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--zen-border);
+            backdrop-filter: blur(10px);
+            transition: border-color 200ms ease, transform 200ms ease;
+            position: relative;
         }
 
-        .feature-box h3 {
-            font-size: 1.5rem;
+        .feature-card:hover {
+            border-color: rgba(41, 151, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--zen-accent-soft);
+            border-radius: 10px;
+            margin-bottom: 1.25rem;
+            color: var(--zen-accent);
+            font-size: 18px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.125rem;
             font-weight: 600;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             color: #fff;
+            letter-spacing: -0.01em;
         }
 
-        .feature-box p {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.75);
-            line-height: 1.5;
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--zen-text-muted);
+            line-height: 1.55;
             font-weight: 300;
         }
 
-        /* Footer */
-        .footer {
+        /* === Stack / Built with === */
+        .stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--zen-border);
+        }
+
+        .stack-item h4 {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--zen-text-faint);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .stack-item p {
+            font-size: 14px;
+            color: var(--zen-text);
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .stack-item code {
+            font-family: 'SF Mono', 'JetBrains Mono', Menlo, monospace;
+            font-size: 12.5px;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #b8e0ff;
+        }
+
+        /* === CTA strip === */
+        .cta-strip {
+            padding: 5rem 2rem;
             text-align: center;
-            padding: 4rem 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid var(--zen-border);
+            border-bottom: 1px solid var(--zen-border);
+            background: linear-gradient(180deg, transparent, rgba(41, 151, 255, 0.04), transparent);
+        }
+
+        .cta-strip h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 1.5rem;
+        }
+
+        /* === Footer === */
+        .footer {
+            padding: 3rem 2rem 2.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
         }
 
         .footer p {
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            color: var(--zen-text-faint);
             margin: 0.5rem 0;
+            line-height: 1.6;
         }
 
         .footer a {
-            color: #2997ff;
+            color: var(--zen-accent);
             text-decoration: none;
-            transition: opacity 0.3s ease;
+            transition: opacity 200ms ease;
         }
 
-        .footer a:hover {
-            opacity: 0.8;
+        .footer a:hover { opacity: 0.75; }
+
+        .footer-links {
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        /* Responsive Design */
+        .footer-links a {
+            color: var(--zen-text-muted);
+            font-size: 13px;
+        }
+
+        .footer-links a:hover { color: var(--zen-accent); }
+
+        /* === Animations === */
+        @keyframes zen-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* === Responsive === */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
+            .nav { padding: 14px 20px; }
+            .nav-links { display: none; }
+            .hero { padding: 7rem 1.5rem 3rem; }
+            .section { padding: 4rem 1.5rem; }
+            .features { grid-template-columns: 1fr; }
+            .feature-card { padding: 1.5rem; }
+            .stack { grid-template-columns: 1fr; gap: 1.5rem; }
+        }
 
-            .hero p {
-                font-size: 1.25rem;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-                padding: 2rem 1rem;
-            }
-
-            .feature-box {
-                padding: 2rem;
-            }
+        /* Reduce motion respectful default */
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.01ms !important; }
+            html { scroll-behavior: auto; }
         }
     </style>
 </head>
@@ -174,33 +439,134 @@
         <spline-viewer url="https://prod.spline.design/F6AYpmRz8BcjiRq6/scene.splinecode"></spline-viewer>
     </div>
 
+    <nav class="nav">
+        <div class="nav-brand">Zenova AI</div>
+        <div class="nav-links">
+            <a href="#capabilities">Capabilities</a>
+            <a href="#how-it-works">How it works</a>
+            <a href="https://github.com/boinpallypraneeth" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </nav>
+
     <main>
+        <!-- === HERO === -->
         <section class="hero">
-            <h1>Welcome to <span>Zenova AI</span></h1>
-            <p>Zenova AI uses neural signals to code, debug, and collaborate. Experience the future of intelligent software development.</p>
-            <a href="https://huggingface.co/spaces/AInerd44/Zenova_AI_Public" target="_blank">
-                <button class="cta-button">Try Zenova AI</button>
+            <span class="hero-eyebrow">Agentic · Open Source</span>
+            <h1>An AI agent built for<br><span class="accent">engineers, not chat.</span></h1>
+            <p class="lead">
+                Zenova is an agentic assistant for IT professionals, network engineers,
+                and CS students. It uses real tools — web search, code analysis,
+                and RFC lookup — to ground every answer in evidence, not guesses.
+            </p>
+            <div class="hero-cta-group">
+                <a href="https://huggingface.co/spaces/AInerd44/Zenova_AI_Public"
+                   target="_blank" rel="noopener"
+                   class="cta-button cta-primary">
+                    Try Zenova <span class="arrow">→</span>
+                </a>
+                <a href="#capabilities" class="cta-button cta-secondary">
+                    See how it works
+                </a>
+            </div>
+        </section>
+
+        <!-- === CAPABILITIES === -->
+        <section class="section" id="capabilities">
+            <span class="section-eyebrow">Capabilities</span>
+            <h2 class="section-title">Real tools. Transparent reasoning.</h2>
+            <p class="section-lead">
+                Unlike a plain chatbot, Zenova can call tools when it needs fresh
+                information, then shows you exactly what it did. Every answer comes
+                with its receipts.
+            </p>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Live Web Search</h3>
+                    <p>Pulls current information for CVEs, recent releases, error messages, and documentation. No stale answers from a frozen knowledge cutoff.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Static Code Analysis</h3>
+                    <p>Parses Python with AST and flags common issues — mutable defaults, bare excepts, eval, shell injection risks. No code execution, fully safe.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📘</div>
+                    <h3>RFC Lookup</h3>
+                    <p>Built-in knowledge of foundational networking RFCs — TCP, BGP, OSPF, HTTP, IPv4/IPv6, DHCP, ARP — with direct links to the source documents.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📎</div>
+                    <h3>File-Aware</h3>
+                    <p>Attach Python, JS, JSON, YAML, or log files directly. Zenova reads them, includes the contents in context, and answers questions about your code.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💭</div>
+                    <h3>Visible Reasoning</h3>
+                    <p>Every tool call and result appears inline as a collapsible "Thinking" block. You see what the agent did before reading its answer.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔓</div>
+                    <h3>Open Source, Private</h3>
+                    <p>Built on Qwen2.5-Coder-32B via Hugging Face Inference Providers. No proprietary lock-in. The full source is on GitHub.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- === HOW IT WORKS === -->
+        <section class="section" id="how-it-works">
+            <span class="section-eyebrow">Under the hood</span>
+            <h2 class="section-title">A ReAct agent on open-source LLMs.</h2>
+            <p class="section-lead">
+                Zenova uses a tool-calling agent loop: the model decides when to
+                invoke a tool, the host executes it, and the result feeds back into
+                the next step — up to four rounds per question. Built without a single
+                proprietary API.
+            </p>
+
+            <div class="stack">
+                <div class="stack-item">
+                    <h4>Backbone Model</h4>
+                    <p><code>Qwen2.5-Coder-32B-Instruct</code> via Hugging Face Inference Providers — strong on code, networking, and reasoning.</p>
+                </div>
+                <div class="stack-item">
+                    <h4>Interface</h4>
+                    <p>Gradio 5 with custom theming and streamed responses. Deployed as a free Hugging Face Space.</p>
+                </div>
+                <div class="stack-item">
+                    <h4>Search</h4>
+                    <p>DuckDuckGo via <code>duckduckgo-search</code> — no API key, no tracking.</p>
+                </div>
+                <div class="stack-item">
+                    <h4>Agent Loop</h4>
+                    <p>Custom ReAct-style implementation in Python. Tool calls emitted as parsed JSON, results fed back, capped at four steps.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- === CTA STRIP === -->
+        <section class="cta-strip">
+            <h2>Try it on a real question.</h2>
+            <p style="color: var(--zen-text-muted); margin-bottom: 2rem; font-weight: 300;">
+                Paste a stack trace. Ask about an RFC. Review a Python script.
+            </p>
+            <a href="https://huggingface.co/spaces/AInerd44/Zenova_AI_Public"
+               target="_blank" rel="noopener"
+               class="cta-button cta-primary">
+                Launch Zenova <span class="arrow">→</span>
             </a>
         </section>
 
-        <section class="features">
-            <div class="feature-box">
-                <h3>Neural Signal Translation</h3>
-                <p>Instant code generation through neural interface technology.</p>
-            </div>
-            <div class="feature-box">
-                <h3>Real-Time Debugging</h3>
-                <p>Immediate feedback and error detection as you work.</p>
-            </div>
-            <div class="feature-box">
-                <h3>Mind Collaboration</h3>
-                <p>Seamless team integration through neural networks.</p>
-            </div>
-        </section>
-
+        <!-- === FOOTER === -->
         <footer class="footer">
-            <p>&copy; 2025 Zenova AI. All rights reserved.</p>
-            <p>Explore on <a href="https://huggingface.co/spaces/AInerd44/Zenova_AI_Public" target="_blank">Hugging Face</a></p>
+            <div class="footer-links">
+                <a href="https://github.com/boinpallypraneeth" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://huggingface.co/spaces/AInerd44/Zenova_AI_Public" target="_blank" rel="noopener">Hugging Face</a>
+                <a href="https://boinpallypraneeth.github.io" target="_blank" rel="noopener">Portfolio</a>
+            </div>
+            <p>Built by <a href="https://boinpallypraneeth.github.io" target="_blank" rel="noopener">Praneeth Boinpally</a></p>
+            <p style="font-size: 11.5px; margin-top: 8px;">&copy; 2026 Zenova AI · Open source · Free to use</p>
         </footer>
     </main>
 
